@@ -1,6 +1,12 @@
-pids
+#pids
 *.pid
 *.seed
 
-logs
+#logs
 *.log
+
+#build
+build/*
+
+#restart.js testing
+restart.js
