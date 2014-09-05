@@ -40,8 +40,8 @@ var express 		= require("express"),
 	//serveStatic 	= require('serve-static'),
 	uaParser 		= require('ua-parser');
 
-var ADMIN 			= require('./lib/admin.js'),
-	ERROR 			= require('./lib/error.js');
+var ADMIN 			= require('./modules/admin.js'),
+	ERROR 			= require('./modules/error.js');
 
 var app 			= express();
 

@@ -1,6 +1,7 @@
 /*
 
 Copyright 2014 Emil Hemdal <emil(at)hemdal(dot)se>
+Copyright 2014 Landstinget Dalarna Bibliotek och informationscentral <webmaster(dot)lasarettsbiblioteken(at)ltdalarna(dot)se>
 
 This file is part of ScourDox.
 

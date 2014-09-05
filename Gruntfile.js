@@ -1,6 +1,14 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		versions: {
+			jQuery: "2.1.1",
+			Sizzle: "1.10.19",
+			Bootstrap: "3.2.0",
+			handlebars: "1.3.0",
+			Ember: "1.7.0"
+
+		},
 		clean: ["build/*"], // Empty the build directory
 		concat: {
 			options: {
@@ -57,11 +65,21 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options: {
-				preserveComments: 'some',
+				preserveComments: false,
 				mangle: false,
 				report: 'min'
 			},
 			publicJavaScript: {
+				options: {
+					banner: "/*!\n"+
+							" * <%= pkg.name %> - v<%= pkg.version %>\n"+
+							" * This file contains\n"+
+							" * jQuery v<%= versions.jQuery %>, Sizzle v<%= versions.Sizzle %> (c) 2005, 2014 jQuery Foundation, Inc. (https://jquery.com) MIT license\n"+
+							" * Bootstrap v<%= versions.Bootstrap %> (c) 2011-2014 Twitter, Inc. (http://getbootstrap.com) MIT license\n"+
+							" * handlebars v<%= versions.handlebars %> (c) 2011 Yehuda Katz (http://handlebarsjs.com/) MIT license\n"+
+							" * Ember v<%= versions.Ember %> (c) 2011-2014 Tilde Inc. and contributors, Portions Copyright 2006-2011 Strobe Inc., Portions Copyright 2008-2011 Apple Inc. All rights reserved. (http://emberjs.com/) MIT license\n"+
+							" */\n"
+				},
 				files: [
 					{expand: true, cwd: "build/public/js/", src: "**/*.js", dest: "build/public/js/", ext: ".min.js"}
 				]
