@@ -37,7 +37,7 @@ computer/server. Then you need to run node like this: 'node server.js'.
 var express 		= require("express"),
 	EGS 			= require("egs"),
 	cookieParser 	= require('cookie-parser'),
-	serveStatic 	= require('serve-static'),
+	//serveStatic 	= require('serve-static'),
 	uaParser 		= require('ua-parser');
 
 var ADMIN 			= require('./lib/admin.js'),
@@ -47,7 +47,7 @@ var app 			= express();
 
 app.enable('trust proxy') // DISABLE if you don't use NGINX or Apache in front of node.js!!
    .use(cookieParser())
-   .use(serveStatic('public/'));
+   //.use(serveStatic('public/'));
 
 var router = express.Router();
 
