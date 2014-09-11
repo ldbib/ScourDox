@@ -28,26 +28,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 To run this program you first need Node.js installed on your
-computer/server. Then you need to run node like this: 'node server.js'.
+computer/server. Then you need to run node like this: "node server.js".
 
 */
+
+/* jshint node: true */
 
 "use strict";
 
 var express 		= require("express"),
-	EGS 			= require("egs"),
-	cookieParser 	= require('cookie-parser'),
-	//serveStatic 	= require('serve-static'),
-	uaParser 		= require('ua-parser');
+	//EGS 			= require("egs"),
+	cookieParser 	= require("cookie-parser");
+	//serveStatic 	= require("serve-static"),
+	//uaParser 		= require("ua-parser");
 
-var ADMIN 			= require('./modules/admin.js'),
-	ERROR 			= require('./modules/error.js');
+var ADMIN 			= require("./modules/admin.js");
+//	ERROR 			= require("./modules/error.js");
+
+process.chdir("./build");
 
 var app 			= express();
 
-app.enable('trust proxy') // DISABLE if you don't use NGINX or Apache in front of node.js!!
-   .use(cookieParser())
-   //.use(serveStatic('public/'));
+app.enable("trust proxy") // DISABLE if you don't use NGINX or Apache in front of node.js!!
+   .use(cookieParser());
+   //.use(serveStatic("public/"));
 
 var router = express.Router();
 
@@ -55,7 +59,7 @@ router.use(function(req, res, next) {
 	next();
 	/*return;
 	var d = new Date(Date.now()+3600*1000).toUTCString();
-	res.writeHead(200, {'Set-Cookie': "test=test; Expires="+d+"; path=/; HttpOnly", "Content-Type": "text/plain; charset=UTF-8"});
+	res.writeHead(200, {"Set-Cookie": "test=test; Expires="+d+"; path=/; HttpOnly", "Content-Type": "text/plain; charset=UTF-8"});
 	res.end("Hello World!\n");
 	console.log(req.headers);*/
 });
@@ -70,8 +74,8 @@ router.get("/", function(req, res, next) {
 	res.writeHead(200, {"Content-Length": text.length, "Content-Type": "text/plain; charset=UTF-8"});
 	res.end(text);
 	next();
-	return;
-	app.render('index.egs', {"name": "data", "title": "Titel"}, function(err, html) {
+	/*
+	app.render("index.egs", {"name": "data", "title": "Titel"}, function(err, html) {
 		if(err) {
 			ERROR.render(res, err);
 		}
@@ -84,11 +88,9 @@ router.get("/", function(req, res, next) {
 		}
 		next();
 	});
+	*/
 });
 
 app.use(router);
 app.listen(5000);
 console.log("SERVER STARTED!");
-
-
-

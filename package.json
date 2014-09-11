@@ -36,6 +36,13 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-handlebars": "^0.8.0",
+    "grunt-contrib-htmlmin": "^0.3.0",
+    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-uglify": "^0.5.1"
+  },
+  "scripts": {
+    "prestart": "grunt",
+    "start": "forever start -l out.log -p . --append --colors -w --watchDirectory=./build --killSignal=SIGTERM build/server.js",
+    "stop": "forever stop -p . build/server.js"
   }
 }

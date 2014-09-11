@@ -20,14 +20,15 @@ along with ScourDox.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+/* jshint curly: true, eqeqeq: true, eqnull: true, node: true, devel: true, undef: true */
+
 "use strict";
 
-var uaParser 	= require('ua-parser'),
-	fs 			= require("fs"),
-	crypto 		= require("crypto"),
-	zlib 		= require('zlib');
+var uaParser 	= require("ua-parser"),
+	fs 			= require("fs");
+//	crypto 		= require("crypto");
 
-var ERROR 		= require("./error.js");
+//var ERROR 		= require("./error.js");
 
 exports.run = function(req, res, next) {
 	//console.log(req.headers);
@@ -40,29 +41,27 @@ exports.run = function(req, res, next) {
 	}
 	if(req.cookies.user === undefined) {
 		// Display login screen
-		fs.stat("./public/html/admin/login.html", function(err, stats) {
+		fs.stat("./public/html/admin/login.html", function(err/*, stats*/) {
+			if(err) { console.log(err); }
 			res.set({
-				'Content-Type': 'text/html; charset=utf-8',
+				"Content-Type": "text/html; charset=utf-8",
+				"vary": "Accept-Encoding"
 				//"Content-Length": stats.size,
-				//"ETag": crypto.createHash('md5').update(stats.size+stats.mtime).digest('hex')
+				//"ETag": crypto.createHash("md5").update(stats.size+stats.mtime).digest("hex")
 			});
 
-			var fileRead = fs.createReadStream("./public/html/admin/login.html", {"encoding": "utf8"})
+			var adminLoginPath = "./public/html/admin/login.html";
 
-			/*if(req.get("Accept-Encoding")) {
+			if(req.get("Accept-Encoding")) {
 				var accept = req.get("Accept-Encoding");
-				if(accept.match(/\bdeflate\b/)) {
-					res.set("content-encoding", "deflate");
-					fileRead.pipe(zlib.createDeflate()).pipe(res);
-				} else if(accept.match(/\bgzip\b/)) {
+				if(accept.indexOf("gzip") !== -1) {
 					res.set("content-encoding", "gzip");
-					fileRead.pipe(zlib.createGzip()).pipe(res);
-				} else {
-					fileRead.pipe(res);
+					adminLoginPath = "./public/html/admin/login.html.gz";
 				}
-			} else {*/
-				fileRead.pipe(res);
-			//}
+			}
+
+			fs.createReadStream(adminLoginPath).pipe(res);
+
 		});
 	} else {
 		console.log(req.cookies);

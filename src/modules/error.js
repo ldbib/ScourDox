@@ -20,6 +20,8 @@ along with ScourDox.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+/* jshint curly: true, eqeqeq: true, eqnull: true, node: true, devel: true, undef: true */
+
 "use strict";
 
 exports.render = function(res, err) {
